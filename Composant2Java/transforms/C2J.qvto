@@ -1,0 +1,50 @@
+modeltype Cmp uses "http://composant";
+modeltype Java uses "http:///myJava";
+
+transformation C2J(in src: Cmp, out dst: Java);
+
+main() {
+
+	src.rootObjects()[Composant] -> map Composant2Classe();
+	
+
+}
+
+
+mapping Composant::Composant2Classe() : JClasse {
+result.name := "C"+ self.name;
+result._extends += object JClasseLibrairie {
+name := "ComposantGraphique";
+
+
+// started editing from here 
+result.attributs += object JAttribut {
+		name := "panneau"
+};
+result.methodes += object JConstructeur {
+	parametres += object JParametre {
+		name := "name";
+		type := object TypeBase {
+			name := "String"
+		}; 
+	};
+	
+	parametres += object JParametre {
+		name := "lenght";
+		type := object TypeBase {
+			name := "int"
+		}; 
+	};
+	
+	parametres += object JParametre {
+		name := "width";
+		type := object TypeBase {
+			name := "int"
+		}; 
+	};
+}
+
+};
+
+}
+
